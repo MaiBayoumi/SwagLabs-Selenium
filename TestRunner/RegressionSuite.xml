@@ -8,6 +8,8 @@
         </groups>
         <classes>
             <class name="Tests.T1_LoginPage"/>
+            <class name="Tests.T2_LandingPage"/>
+
         </classes>
     </test>
 </suite>

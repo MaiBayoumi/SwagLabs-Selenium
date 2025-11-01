@@ -26,8 +26,9 @@ public class LoginPage {
         return this;
     }
 
-    public void clickOnLogin() {
+    public ProductsPage clickOnLogin() {
         Utility.clickOnElement(driver, loginBtn);
+        return new ProductsPage(driver);
     }
 
     public By getErrorMsgLocator() {

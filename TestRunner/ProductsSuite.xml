@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Products Suite">
+    <test name="Products Test">
+        <classes>
+            <class name="Tests.T2_LandingPage"/>
+        </classes>
+    </test>
+</suite>

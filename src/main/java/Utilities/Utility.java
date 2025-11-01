@@ -6,6 +6,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 
 public class Utility {
@@ -38,6 +42,7 @@ public class Utility {
         return true;
     }
 
+    //Verifies whether the error message is displayed on the page.
     public static boolean isErrorMessageDisplayed(WebDriver driver, By locator) {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -47,4 +52,28 @@ public class Utility {
             return false;
         }
     }
+
+    // Returns the text data of the element located by the provided locator.
+    public static String getTextData(WebDriver driver, By locator) {
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return driver.findElement(locator).getText();
+    }
+
+    // Generates a random number between 1 and the provided upper bound.
+    public static int generateRandomNumber(int boundry) {
+        return new Random().nextInt(boundry) + 1;
+    }
+
+
+    // Generates a set of unique random numbers.
+    public static List<Integer> generateUniqueNumber(int countToGenerate, int maxAvailableRange) {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i <= maxAvailableRange; i++) {
+            numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+
+        return numbers.subList(0, Math.min(countToGenerate, numbers.size()));
+    }
+
 }
