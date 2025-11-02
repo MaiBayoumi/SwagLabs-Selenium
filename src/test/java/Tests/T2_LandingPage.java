@@ -36,7 +36,8 @@ public class T2_LandingPage {
 
     @Test
     public void selectRandomProductTC() {
-        new LoginPage(getDriver()).enterUserName(USERNAME)
+        new LoginPage(getDriver())
+                .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
                 .clickOnLogin().addRandomProducts(4, 6);
         Assert.assertTrue(new ProductsPage(getDriver()).comparingNumberOfSelectedProductsWithCart());
@@ -45,7 +46,8 @@ public class T2_LandingPage {
 
     @Test
     public void verifyClickingOnCartTC() {
-        new LoginPage(getDriver()).enterUserName(USERNAME)
+        new LoginPage(getDriver())
+                .enterUserName(USERNAME)
                 .enterPassword(PASSWORD).clickOnLogin()
                 .clickingOnCartButton();
         Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CART_URL));
@@ -62,7 +64,7 @@ public class T2_LandingPage {
         int beforeRemove = Integer.parseInt(productsPage.getNumberOfProductsOnCartIcon());
         productsPage.removeRandomProductFromInventory();
         int afterRemove = Integer.parseInt(productsPage.getNumberOfProductsOnCartIcon());
-        Assert.assertEquals(afterRemove, beforeRemove - 1, "Item was not removed correctly from inventory page!");
+        Assert.assertEquals(afterRemove, beforeRemove - 1);
     }
 
     @Test
@@ -73,16 +75,16 @@ public class T2_LandingPage {
                 .clickOnLogin();
 
         productsPage.selectFilter("Name (A to Z)");
-        Assert.assertTrue(productsPage.isSortedByNameAscending(), "Products are not sorted A to Z!");
+        Assert.assertTrue(productsPage.isSortedByNameAscending());
 
         productsPage.selectFilter("Name (Z to A)");
-        Assert.assertTrue(productsPage.isSortedByNameDescending(), "Products are not sorted Z to A!");
+        Assert.assertTrue(productsPage.isSortedByNameDescending());
 
         productsPage.selectFilter("Price (low to high)");
-        Assert.assertTrue(productsPage.isSortedByPriceAscending(), "Products are not sorted low to high!");
+        Assert.assertTrue(productsPage.isSortedByPriceAscending());
 
         productsPage.selectFilter("Price (high to low)");
-        Assert.assertTrue(productsPage.isSortedByPriceDescending(), "Products are not sorted high to low!");
+        Assert.assertTrue(productsPage.isSortedByPriceDescending());
     }
 
 

@@ -36,9 +36,12 @@ public class T3_CartPage {
 
     @Test
     public void VerifyingCartTotalPriceTC() {
-        new LoginPage(getDriver()).enterUserName(USERNAME)
+        new LoginPage(getDriver())
+                .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
-                .clickOnLogin().addRandomProducts(3, 6).clickingOnCartButton();
+                .clickOnLogin()
+                .addRandomProducts(3, 6)
+                .clickingOnCartButton();
         Assert.assertTrue(new CartPage(getDriver()).comparingBothPrices(new ProductsPage(getDriver()).getTotalPriceForSelectedProducts()));
 
     }
@@ -67,10 +70,10 @@ public class T3_CartPage {
 
         CartPage cartPage = new CartPage(getDriver());
         int beforeRemove = cartPage.getNumberOfItemsInCart();
-        Assert.assertTrue(beforeRemove > 0, "Cart should have at least one item before removing!");
+        Assert.assertTrue(beforeRemove > 0);
         cartPage.removeItemFromCart();
         int afterRemove = cartPage.getNumberOfItemsInCart();
-        Assert.assertEquals(afterRemove, beforeRemove - 1, "Item was not removed from cart!");
+        Assert.assertEquals(afterRemove, beforeRemove - 1);
     }
 
 

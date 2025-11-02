@@ -30,4 +30,9 @@ public class DataUtils {
         }
 
     }
+
+    public static String generateRandomZipCode() {
+        return String.valueOf(10000 + new java.util.Random().nextInt(90000));
+    }
+
 }

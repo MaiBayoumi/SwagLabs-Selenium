@@ -51,10 +51,7 @@ public class T1_LoginPage {
                 .enterPassword(PASSWORD)
                 .clickOnLogin();
 
-        Assert.assertTrue(
-                Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()),
-                "Error message not displayed for invalid username."
-        );
+        Assert.assertTrue(Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()));
     }
 
 
@@ -64,10 +61,7 @@ public class T1_LoginPage {
         loginPage.enterUserName(USERNAME)
                 .enterPassword(INVALID_PASSWORD)
                 .clickOnLogin();
-        Assert.assertTrue(
-                Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()),
-                "Error message not displayed for invalid username."
-        );
+        Assert.assertTrue(Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()));
     }
 
 
@@ -77,10 +71,7 @@ public class T1_LoginPage {
         loginPage.enterUserName(INVALID_USERNAME)
                 .enterPassword(INVALID_PASSWORD)
                 .clickOnLogin();
-        Assert.assertTrue(
-                Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()),
-                "Error message not displayed for invalid username."
-        );
+        Assert.assertTrue(Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()));
     }
 
     @Test(groups = {"negative"})
@@ -89,10 +80,7 @@ public class T1_LoginPage {
         loginPage.enterUserName("")
                 .enterPassword("")
                 .clickOnLogin();
-        Assert.assertTrue(
-                Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()),
-                "Error message not displayed for invalid username."
-        );
+        Assert.assertTrue(Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()));
     }
 
     @AfterMethod
