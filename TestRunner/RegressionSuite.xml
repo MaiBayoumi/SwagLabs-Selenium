@@ -3,13 +3,13 @@
     <test name="Run Regression Tests">
         <groups>
             <run>
-                <include name="regression"/>
+                <exclude name="negative"/>
             </run>
         </groups>
         <classes>
             <class name="Tests.T1_LoginPage"/>
             <class name="Tests.T2_LandingPage"/>
-
+            <class name="Tests.T3_CartPage"/>
         </classes>
     </test>
 </suite>

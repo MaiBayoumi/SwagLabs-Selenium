@@ -23,7 +23,7 @@ public class T2_LandingPage {
     private final String CART_URL = getPropertyValue("environment", "Cart_URL");
 
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod
     public void setup() {
         Assert.assertNotNull(CURRENT_BROWSER);
         setupDriver(CURRENT_BROWSER);
@@ -34,7 +34,7 @@ public class T2_LandingPage {
     }
 
 
-    @Test(groups = {"regression"})
+    @Test
     public void selectRandomProductTC() {
         new LoginPage(getDriver()).enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
@@ -43,7 +43,7 @@ public class T2_LandingPage {
 
     }
 
-    @Test(groups = {"regression"})
+    @Test
     public void verifyClickingOnCartTC() {
         new LoginPage(getDriver()).enterUserName(USERNAME)
                 .enterPassword(PASSWORD).clickOnLogin()
@@ -86,7 +86,7 @@ public class T2_LandingPage {
     }
 
 
-    @AfterMethod(alwaysRun = true)
+    @AfterMethod
     public void quit() {
         quitDriver();
     }

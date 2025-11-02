@@ -25,7 +25,7 @@ public class T1_LoginPage {
     private final String INVALID_PASSWORD = getJsonData("invalidLoginCredentials", "Password");
 
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod
     public void setup() {
         Assert.assertNotNull(CURRENT_BROWSER);
         setupDriver(CURRENT_BROWSER);
@@ -34,7 +34,7 @@ public class T1_LoginPage {
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    @Test(groups = {"regression"})
+    @Test
     public void validLoginTC() {
         new LoginPage(getDriver())
                 .enterUserName(USERNAME)
@@ -95,7 +95,7 @@ public class T1_LoginPage {
         );
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterMethod
     public void quit() {
         quitDriver();
     }
