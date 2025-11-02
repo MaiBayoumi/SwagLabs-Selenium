@@ -84,7 +84,7 @@ public class T4_CheckoutPage {
                 .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
                 .clickOnLogin()
-                .addRandomProducts(1, 3)
+                .addRandomProducts(2, 6)
                 .clickingOnCartButton()
                 .clickOnCheckoutBTN()
                 .fillingFormData(FIRST_NAME, LAST_NAME, "");

@@ -38,9 +38,9 @@ public class OverViewPage {
         return calculateTotalPrice().equals(String.valueOf(getTotal()));
     }
 
-    public OrderConfirmationPage clickOnFinish() {
+    public FinalPage clickOnFinish() {
         Utility.clickOnElement(driver, finishBTN);
-        return new OrderConfirmationPage(driver);
+        return new FinalPage(driver);
     }
 
     public void clickOnCancel() {

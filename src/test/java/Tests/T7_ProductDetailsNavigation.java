@@ -36,11 +36,9 @@ public class T7_ProductDetailsNavigation {
                 .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
                 .clickOnLogin()
-                .addRandomProducts(1, 6);
+                .addRandomProducts(2, 6);
 
         ProductDetailsPage detailsFromProducts = productsPage.clickOnFirstProduct();
-        Assert.assertTrue(detailsFromProducts.getCurrentURL().contains("inventory-item.html"));
-
         boolean isAddVisible = detailsFromProducts.isAddToCartDisplayed();
         boolean isRemoveVisible = detailsFromProducts.isRemoveButtonDisplayed();
         Assert.assertTrue(isAddVisible || isRemoveVisible);

@@ -79,8 +79,7 @@ public class Utility {
 
     public static boolean isElementDisplayed(WebDriver driver, By locator) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            WebElement element = driver.findElement(locator);
             return element.isDisplayed();
         } catch (Exception e) {
             return false;
@@ -88,4 +87,7 @@ public class Utility {
     }
 
 
+    public static WebElement toWebElement(WebDriver driver, By locator) {
+        return driver.findElement(locator);
+    }
 }
