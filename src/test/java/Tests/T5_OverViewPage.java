@@ -1,9 +1,8 @@
 package Tests;
 
 
-import Pages.CartPage;
 import Pages.LoginPage;
-import Pages.ProductsPage;
+import Pages.OverViewPage;
 import Utilities.Utility;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -13,15 +12,17 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 import static DriverFactory.DriverFactory.*;
-import static Utilities.DataUtils.getJsonData;
-import static Utilities.DataUtils.getPropertyValue;
+import static Utilities.DataUtils.*;
 
-
-public class T3_CartPage {
+public class T5_OverViewPage {
     private final String USERNAME = getJsonData("validLoginCredentials", "UserName");
     private final String PASSWORD = getJsonData("validLoginCredentials", "Password");
     private final String BASE_URL = getPropertyValue("environment", "Base_URL");
     private final String CURRENT_BROWSER = getPropertyValue("environment", "Browser");
+    private final String FIRST_NAME = getJsonData("validCheckOutData", "FirstName");
+    private final String LAST_NAME = getJsonData("validCheckOutData", "LastName");
+    private final String ZIP_CODE = generateRandomZipCode();
+    private final String CURRENT_URL = getPropertyValue("environment", "OrderConfirmation_URL");
     private final String HOME_URL = getPropertyValue("environment", "Home_URL");
 
 
@@ -32,56 +33,40 @@ public class T3_CartPage {
         Assert.assertNotNull(BASE_URL);
         getDriver().get(BASE_URL);
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
     }
 
     @Test
-    public void VerifyingCartTotalPriceTC() {
+    public void validateTotalPriceTC() {
         new LoginPage(getDriver())
                 .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
                 .clickOnLogin()
-                .addRandomProducts(3, 6)
-                .clickingOnCartButton();
-
-        Assert.assertTrue(new CartPage(getDriver())
-                .comparingBothPrices(new ProductsPage(getDriver())
-                        .getTotalPriceForSelectedProducts()));
-
+                .addRandomProducts(4, 6)
+                .clickingOnCartButton()
+                .clickOnCheckoutBTN()
+                .fillingFormData(FIRST_NAME, LAST_NAME, ZIP_CODE)
+                .clickOnContinue();
+        Assert.assertTrue(new OverViewPage(getDriver()).verifyTotalPrice());
+        new OverViewPage(getDriver()).clickOnFinish();
+        Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CURRENT_URL));
     }
 
-    @Test
-    public void verifyContinueShoppingButtonTC() {
+    @Test(groups = {"negative"})
+    public void verifyCancelButtonRedirectsToInventory_TC() {
         new LoginPage(getDriver())
                 .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
                 .clickOnLogin()
                 .addRandomProducts(1, 3)
-                .clickingOnCartButton();
+                .clickingOnCartButton()
+                .clickOnCheckoutBTN()
+                .fillingFormData(FIRST_NAME, LAST_NAME, ZIP_CODE)
+                .clickOnContinue()
+                .clickOnCancel();
 
-        new CartPage(getDriver()).clickOnContinueShoppingBTN();
         Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), HOME_URL));
     }
-
-    @Test
-    public void verifyRemoveItemFromCartTC() {
-        new LoginPage(getDriver())
-                .enterUserName(USERNAME)
-                .enterPassword(PASSWORD)
-                .clickOnLogin()
-                .addRandomProducts(2, 4)
-                .clickingOnCartButton();
-
-        CartPage cartPage = new CartPage(getDriver());
-        int beforeRemove = cartPage.getNumberOfItemsInCart();
-
-        Assert.assertTrue(beforeRemove > 0);
-
-        cartPage.removeItemFromCart();
-        int afterRemove = cartPage.getNumberOfItemsInCart();
-
-        Assert.assertEquals(afterRemove, beforeRemove - 1);
-    }
-
 
     @AfterMethod
     public void quit() {

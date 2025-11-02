@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="OverView Suite">
+    <test name="OverView Test">
+        <classes>
+            <class name="Tests.T5_OverViewPage"/>
+
+        </classes>
+    </test>
+</suite>

@@ -40,6 +40,7 @@ public class T2_LandingPage {
                 .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
                 .clickOnLogin().addRandomProducts(4, 6);
+
         Assert.assertTrue(new ProductsPage(getDriver()).comparingNumberOfSelectedProductsWithCart());
 
     }
@@ -50,6 +51,7 @@ public class T2_LandingPage {
                 .enterUserName(USERNAME)
                 .enterPassword(PASSWORD).clickOnLogin()
                 .clickingOnCartButton();
+
         Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CART_URL));
 
     }
@@ -61,9 +63,11 @@ public class T2_LandingPage {
                 .enterPassword(PASSWORD)
                 .clickOnLogin()
                 .addRandomProducts(3, 6);
+
         int beforeRemove = Integer.parseInt(productsPage.getNumberOfProductsOnCartIcon());
         productsPage.removeRandomProductFromInventory();
         int afterRemove = Integer.parseInt(productsPage.getNumberOfProductsOnCartIcon());
+
         Assert.assertEquals(afterRemove, beforeRemove - 1);
     }
 

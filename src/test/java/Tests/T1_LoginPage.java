@@ -61,6 +61,7 @@ public class T1_LoginPage {
         loginPage.enterUserName(USERNAME)
                 .enterPassword(INVALID_PASSWORD)
                 .clickOnLogin();
+
         Assert.assertTrue(Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()));
     }
 
@@ -71,6 +72,7 @@ public class T1_LoginPage {
         loginPage.enterUserName(INVALID_USERNAME)
                 .enterPassword(INVALID_PASSWORD)
                 .clickOnLogin();
+
         Assert.assertTrue(Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()));
     }
 
@@ -80,6 +82,7 @@ public class T1_LoginPage {
         loginPage.enterUserName("")
                 .enterPassword("")
                 .clickOnLogin();
+
         Assert.assertTrue(Utility.isErrorMessageDisplayed(getDriver(), loginPage.getErrorMsgLocator()));
     }
 

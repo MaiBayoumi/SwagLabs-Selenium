@@ -24,7 +24,7 @@ public class T4_CheckoutPage {
     private final String LAST_NAME = getJsonData("validCheckOutData", "LastName");
     private final String ZIP_CODE = generateRandomZipCode();
     private final String CURRENT_URL = getPropertyValue("environment", "OverView_URL");
-    private final String HOME_URL = getPropertyValue("environment", "Home_URL");
+    private final String CART_URL = getPropertyValue("environment", "Cart_URL");
 
 
     @BeforeMethod
@@ -42,24 +42,26 @@ public class T4_CheckoutPage {
                 .enterPassword(PASSWORD)
                 .clickOnLogin()
                 .addRandomProducts(2, 6)
-                .clickingOnCartButton().clickOnCheckoutBTN()
+                .clickingOnCartButton()
+                .clickOnCheckoutBTN()
                 .fillingFormData(FIRST_NAME, LAST_NAME, ZIP_CODE)
                 .clickOnContinue();
+
         Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CURRENT_URL));
     }
 
     @Test
     public void verifyCancelButtonRedirectsToInventory_TC() {
-        CheckoutPage checkoutPage = new LoginPage(getDriver())
+        new LoginPage(getDriver())
                 .enterUserName(USERNAME)
                 .enterPassword(PASSWORD)
                 .clickOnLogin()
                 .addRandomProducts(1, 3)
                 .clickingOnCartButton()
-                .clickOnCheckoutBTN();
+                .clickOnCheckoutBTN()
+                .clickOnCancel();
 
-        checkoutPage.clickOnCancel();
-        Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), HOME_URL));
+        Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CART_URL));
     }
 
     @Test(groups = {"negative"})

@@ -10,6 +10,8 @@
             <class name="Tests.T1_LoginPage"/>
             <class name="Tests.T2_LandingPage"/>
             <class name="Tests.T3_CartPage"/>
+            <class name="Tests.T4_CheckoutPage"/>
+            <class name="Tests.T5_OverViewPage"/>
         </classes>
     </test>
 </suite>

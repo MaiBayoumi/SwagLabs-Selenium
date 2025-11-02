@@ -32,7 +32,7 @@ public class CheckoutPage {
 
     public void clickOnCancel() {
         Utility.clickOnElement(driver, cancelButton);
-        new ProductsPage(driver);
+        new CartPage(driver);
     }
 
 
