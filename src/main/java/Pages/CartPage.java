@@ -16,6 +16,7 @@ public class CartPage {
     private final By continueShoppingBTN = By.id("continue-shopping");
     private final By removeButtons = By.xpath("//button[text()='Remove']");
     private final By cartItems = By.className("cart_item");
+    private final By firstProductNameInCart = By.cssSelector(".inventory_item_name");
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
@@ -63,5 +64,11 @@ public class CartPage {
         return new CheckoutPage(driver);
 
     }
+
+    public ProductDetailsPage clickOnFirstProductInCart() {
+        Utility.clickOnElement(driver, firstProductNameInCart);
+        return new ProductDetailsPage(driver);
+    }
+
 }
 

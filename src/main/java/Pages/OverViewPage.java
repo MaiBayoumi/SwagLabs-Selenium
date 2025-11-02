@@ -11,7 +11,7 @@ public class OverViewPage {
     private final By tax = By.className("summary_tax_label");
     private final By totalPriceAfterTax = By.className("summary_total_label");
     private final By cancelButton = By.id("cancel");
-
+    private final By firstProductNameInOverview = By.cssSelector(".inventory_item_name");
 
     public OverViewPage(WebDriver driver) {
         this.driver = driver;
@@ -46,5 +46,10 @@ public class OverViewPage {
     public void clickOnCancel() {
         Utility.clickOnElement(driver, cancelButton);
         new ProductsPage(driver);
+    }
+
+    public ProductDetailsPage clickOnFirstProductInOverview() {
+        Utility.clickOnElement(driver, firstProductNameInOverview);
+        return new ProductDetailsPage(driver);
     }
 }

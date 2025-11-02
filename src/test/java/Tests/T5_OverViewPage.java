@@ -47,7 +47,9 @@ public class T5_OverViewPage {
                 .clickOnCheckoutBTN()
                 .fillingFormData(FIRST_NAME, LAST_NAME, ZIP_CODE)
                 .clickOnContinue();
+        
         Assert.assertTrue(new OverViewPage(getDriver()).verifyTotalPrice());
+
         new OverViewPage(getDriver()).clickOnFinish();
         Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CURRENT_URL));
     }

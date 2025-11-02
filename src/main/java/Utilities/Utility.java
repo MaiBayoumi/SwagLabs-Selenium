@@ -2,6 +2,7 @@ package Utilities;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -75,5 +76,16 @@ public class Utility {
 
         return numbers.subList(0, Math.min(countToGenerate, numbers.size()));
     }
+
+    public static boolean isElementDisplayed(WebDriver driver, By locator) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            return element.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
 }

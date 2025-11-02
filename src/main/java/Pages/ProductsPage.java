@@ -16,6 +16,8 @@ public class ProductsPage {
     private final By filterDropdown = By.className("product_sort_container");
     private final By productNames = By.className("inventory_item_name");
     private final By productPrices = By.className("inventory_item_price");
+    private final By firstProductName = By.cssSelector(".inventory_item_name");
+
     private final WebDriver driver;
 
     public ProductsPage(WebDriver driver) {
@@ -129,6 +131,11 @@ public class ProductsPage {
         } catch (Exception e) {
             return "0";
         }
+    }
+
+    public ProductDetailsPage clickOnFirstProduct() {
+        Utility.clickOnElement(driver, firstProductName);
+        return new ProductDetailsPage(driver);
     }
 }
 
