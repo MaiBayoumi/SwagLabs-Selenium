@@ -4,13 +4,17 @@ import Listeners.IInvokedMethodListenerClass;
 import Listeners.ITestResultsListenerClass;
 import Pages.FinalPage;
 import Pages.LoginPage;
+import Utilities.LogsUtils;
 import Utilities.Utility;
+import Utilities.VideoUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.awt.*;
+import java.io.IOException;
 import java.time.Duration;
 
 import static DriverFactory.DriverFactory.*;
@@ -38,19 +42,33 @@ public class T6_FinalPage {
 
     @Test
     public void checkWelcomeMessageTC() {
-        new LoginPage(getDriver()).enterUserName(USERNAME)
-                .enterPassword(PASSWORD)
-                .clickOnLogin().addRandomProducts(3, 6)
-                .clickingOnCartButton()
-                .clickOnCheckoutBTN()
-                .fillingFormData(FIRST_NAME, LAST_NAME, ZIP_CODE)
-                .clickOnContinue()
-                .clickOnFinish();
+        try {
+            VideoUtils.startRecording("T6_FinalPage");
 
-        Assert.assertTrue(new FinalPage(getDriver()).checkMessageVisibility());
+            new LoginPage(getDriver()).enterUserName(USERNAME)
+                    .enterPassword(PASSWORD)
+                    .clickOnLogin().addRandomProducts(3, 6)
+                    .clickingOnCartButton()
+                    .clickOnCheckoutBTN()
+                    .fillingFormData(FIRST_NAME, LAST_NAME, ZIP_CODE)
+                    .clickOnContinue()
+                    .clickOnFinish();
 
-        new FinalPage(getDriver()).getBackToHome();
-        Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CURRENT_URL));
+            Assert.assertTrue(new FinalPage(getDriver()).checkMessageVisibility());
+
+            new FinalPage(getDriver()).getBackToHome();
+            Assert.assertTrue(Utility.verifyUrlRedirection(getDriver(), CURRENT_URL));
+
+        } catch (IOException | AWTException e) {
+            LogsUtils.error(e.getMessage());
+            Assert.fail("Screen recording failed: " + e.getMessage());
+        } finally {
+            try {
+                VideoUtils.stopRecording();
+            } catch (IOException e) {
+                LogsUtils.error(e.getMessage());
+            }
+        }
     }
 
     @AfterMethod
