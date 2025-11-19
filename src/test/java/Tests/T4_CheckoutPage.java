@@ -1,12 +1,15 @@
 package Tests;
 
 
+import Listeners.IInvokedMethodListenerClass;
+import Listeners.ITestResultsListenerClass;
 import Pages.CheckoutPage;
 import Pages.LoginPage;
 import Utilities.Utility;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -14,7 +17,7 @@ import java.time.Duration;
 import static DriverFactory.DriverFactory.*;
 import static Utilities.DataUtils.*;
 
-
+@Listeners({IInvokedMethodListenerClass.class, ITestResultsListenerClass.class})
 public class T4_CheckoutPage {
     private final String USERNAME = getJsonData("validLoginCredentials", "UserName");
     private final String PASSWORD = getJsonData("validLoginCredentials", "Password");

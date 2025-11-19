@@ -1,5 +1,6 @@
 package Pages;
 
+import Utilities.LogsUtils;
 import Utilities.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,7 @@ public class ProductsPage {
         try {
             return Utility.getTextData(driver, numberOfProductsOnCartIcon);
         } catch (Exception e) {
+            LogsUtils.error(e.getMessage());
             return "0";
         }
     }
@@ -38,6 +40,7 @@ public class ProductsPage {
             List<WebElement> selectedProducts = driver.findElements(numberOfSelectedProducts);
             return String.valueOf(selectedProducts.size());
         } catch (Exception e) {
+            LogsUtils.error(e.getMessage());
             return "0";
         }
     }
@@ -129,6 +132,7 @@ public class ProductsPage {
             }
             return String.valueOf(totalPrice);
         } catch (Exception e) {
+            LogsUtils.error(e.getMessage());
             return "0";
         }
     }
@@ -136,6 +140,10 @@ public class ProductsPage {
     public ProductDetailsPage clickOnFirstProduct() {
         Utility.clickOnElement(driver, firstProductName);
         return new ProductDetailsPage(driver);
+    }
+
+    public By getCartIcon() {
+        return numberOfProductsOnCartIcon;
     }
 }
 

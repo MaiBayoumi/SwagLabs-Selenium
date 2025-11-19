@@ -1,5 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="Regression Suite">
+    <listeners>
+        <listener class-name="Listeners.ITestResultsListenerClass"/>
+        <listener class-name="Listeners.IInvokedMethodListenerClass"/>
+    </listeners>
     <test name="Run Regression Tests">
         <groups>
             <run>

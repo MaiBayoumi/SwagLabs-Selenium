@@ -1,5 +1,6 @@
 package Pages;
 
+import Utilities.LogsUtils;
 import Utilities.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -32,6 +33,7 @@ public class CartPage {
             }
             return String.valueOf(totalPrice);
         } catch (Exception e) {
+            LogsUtils.error(e.getMessage());
             return "0";
         }
     }

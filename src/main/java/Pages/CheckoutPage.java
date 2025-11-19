@@ -1,5 +1,6 @@
 package Pages;
 
+import Utilities.LogsUtils;
 import Utilities.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,6 +41,7 @@ public class CheckoutPage {
         try {
             return Utility.getTextData(driver, errorMessage);
         } catch (Exception e) {
+            LogsUtils.error(e.getMessage());
             return "";
         }
     }

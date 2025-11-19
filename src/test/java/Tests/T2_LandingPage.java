@@ -1,11 +1,14 @@
 package Tests;
 
+import Listeners.IInvokedMethodListenerClass;
+import Listeners.ITestResultsListenerClass;
 import Pages.LoginPage;
 import Pages.ProductsPage;
 import Utilities.Utility;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -14,7 +17,7 @@ import static DriverFactory.DriverFactory.*;
 import static Utilities.DataUtils.getJsonData;
 import static Utilities.DataUtils.getPropertyValue;
 
-
+@Listeners({IInvokedMethodListenerClass.class, ITestResultsListenerClass.class})
 public class T2_LandingPage {
     private final String USERNAME = getJsonData("validLoginCredentials", "UserName");
     private final String PASSWORD = getJsonData("validLoginCredentials", "Password");

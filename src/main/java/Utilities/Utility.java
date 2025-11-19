@@ -1,19 +1,25 @@
 package Utilities;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.assertthat.selenium_shutterbug.core.Capture;
+import com.assertthat.selenium_shutterbug.core.Shutterbug;
+import io.qameta.allure.Allure;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class Utility {
+
+    private static final String SCREENSHOTS_PATH = "testOutputs/ScreenShots/";
+
     //Waits until element is clickable, then clicks it.
     public static void clickOnElement(WebDriver driver, By locator) {
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
@@ -90,4 +96,50 @@ public class Utility {
     public static WebElement toWebElement(WebDriver driver, By locator) {
         return driver.findElement(locator);
     }
+
+    public static File getLatestFile(String folderPath) {
+        File folder = new File(folderPath);
+
+        if (!folder.exists() || !folder.isDirectory()) {
+            LogsUtils.error("Folder does not exist: " + folderPath + " or is not a directory.");
+            return null;
+        }
+
+        File[] files = folder.listFiles();
+        if (files == null || files.length == 0) {
+            LogsUtils.error("No files found in the folder: " + folderPath);
+            return null;
+        }
+
+        Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
+        return files[0];
+    }
+
+
+    public static String getTimeStamp() {
+        return new SimpleDateFormat("yyyy-MM-dd-h-m-ssa").format(new Date());
+    }
+
+
+    public static void takeScreenshot(WebDriver driver, String screenShotName) {
+        try {
+            File screenShotSRC = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File screenShotFile = new File(SCREENSHOTS_PATH + screenShotName + "-" + getTimeStamp() + ".png");
+            FileUtils.copyFile(screenShotSRC, screenShotFile);
+            Allure.addAttachment(screenShotName, Files.newInputStream(screenShotFile.toPath()));
+        } catch (IOException e) {
+            LogsUtils.error(e.getMessage());
+        }
+    }
+
+    public static void takeNewScreenshot(WebDriver driver, By locator) {
+        try {
+            Shutterbug.shootPage(driver, Capture.FULL_SCROLL).highlight(toWebElement(driver, locator)).save(SCREENSHOTS_PATH);
+
+        } catch (Exception e) {
+            LogsUtils.error(e.getMessage());
+        }
+    }
+
+
 }

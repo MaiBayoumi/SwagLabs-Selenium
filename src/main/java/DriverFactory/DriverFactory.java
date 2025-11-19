@@ -12,8 +12,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import java.util.HashMap;
 import java.util.Map;
 
-import static Utilities.DataUtils.getPropertyValue;
-
 public class DriverFactory {
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
@@ -43,19 +41,9 @@ public class DriverFactory {
                 Map<String, Object> prefs = new HashMap<>();
                 prefs.put("credentials_enable_service", false);
                 prefs.put("profile.password_manager_enabled", false);
-
                 options.addArguments("--disable-password-generation");
                 options.addArguments("--disable-save-password-bubble");
-                options.addArguments("--disable-popup-blocking");
-                options.addArguments("--disable-notifications");
-                options.addArguments("--disable-features=PasswordManagerOnboarding,PasswordLeakDetection,SafeBrowsingEnhancedProtection,SafeBrowsingInterstitial");
-                options.addArguments("--safebrowsing-disable-auto-update");
-                options.addArguments("--safebrowsing-disable-download-protection");
-                options.addArguments("--no-first-run");
-                options.addArguments("--no-default-browser-check");
-                options.addArguments("--disable-sync");
-                options.addArguments("--disable-translate");
-
+                options.addArguments("--incognito");
                 options.setExperimentalOption("prefs", prefs);
                 options.addArguments("--disable-popup-blocking");
                 options.addArguments("--disable-notifications");
