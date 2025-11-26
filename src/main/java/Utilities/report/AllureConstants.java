@@ -15,7 +15,7 @@ public class AllureConstants {
     public static final Path RESULTS_FOLDER = Paths.get(String.valueOf(USER_DIR), "testOutputs/target", "allure-results", File.separator);
     public static final Path RESULTS_HISTORY_FOLDER = Paths.get(RESULTS_FOLDER.toString(), "history", File.separator); // copy generated history to it
     public static final Path REPORT_PATH = Paths.get(String.valueOf(USER_DIR), "testOutputs/target", "reports", File.separator); //single report .html
-    public static final Path FULL_REPORT_PATH = Paths.get(String.valueOf(USER_DIR), "testOutputs/targer", "full-report", File.separator);
+    public static final Path FULL_REPORT_PATH = Paths.get(String.valueOf(USER_DIR), "testOutputs/target", "full-report", File.separator);
     public static final Path HISTORY_FOLDER = Paths.get(FULL_REPORT_PATH.toString(), "history", File.separator); //after allure generate
     public static final String INDEX_HTML = "index.html";
     public static final String REPORT_PREFIX = "AllureReport_"; //timestamp
