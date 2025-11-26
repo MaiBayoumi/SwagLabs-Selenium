@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class VideoUtils {
 
-    private static CustomScreenRecorder screenRecorder;
+    public static CustomScreenRecorder screenRecorder;
 
     public static void startRecording(String testName) throws IOException, AWTException {
         File folder = new File("testOutputs/ScreenRecords");
