@@ -41,8 +41,32 @@ public class IInvokedMethodListenerClass implements IInvokedMethodListener, IExe
 
         }
         AllureAttachmentManager.attachLogs();
-//        AllureAttachmentManager.attachRecords(testResult.getMethod().getMethodName());
+        String testClassName = testResult.getMethod().getTestClass().getRealClass().getSimpleName();
+        File folder = new File(System.getProperty("user.dir") + "/testOutputs/ScreenRecords");
+
+        File[] files = folder.listFiles((dir, name) ->
+                name.startsWith(testClassName) && (name.endsWith(".avi") || name.endsWith(".mp4"))
+        );
+
+        if (files != null && files.length > 0) {
+            File latest = files[files.length - 1];
+            System.out.println("Attaching video: " + latest.getAbsolutePath());
+            try {
+                Allure.addAttachment(
+                        testClassName + " - Screen Recording",
+                        "video/mp4",
+                        Files.newInputStream(latest.toPath()),
+                        ".mp4"
+                );
+                AllureAttachmentManager.attachRecord(testResult.getMethod().getMethodName());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            System.out.println("Video file not found for test: " + testClassName);
+        }
     }
+
 
     public void onExecutionStart() {
         LogsUtils.info("Test Execution started");

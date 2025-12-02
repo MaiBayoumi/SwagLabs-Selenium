@@ -3,19 +3,16 @@ package Utilities;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class VideoUtils {
 
     public static CustomScreenRecorder screenRecorder;
 
     public static void startRecording(String testName) throws IOException, AWTException {
-        File folder = new File("testOutputs/ScreenRecords");
+        File folder = new File(System.getProperty("user.dir") + "/testOutputs/ScreenRecords");
         if (!folder.exists()) folder.mkdirs();
 
-        String date = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
-        String fileName = testName + "_" + date;
+        String fileName = testName + ".mp4";
 
         GraphicsConfiguration gc = GraphicsEnvironment
                 .getLocalGraphicsEnvironment()

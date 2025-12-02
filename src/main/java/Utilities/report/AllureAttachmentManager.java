@@ -38,19 +38,29 @@ public class AllureAttachmentManager {
         }
     }
 
-//    public static void attachRecords(String testMethodName) {
-//        if (DataUtils.getProperty("recordTests").equalsIgnoreCase("true")) {
-//            try {
-//                File record = new File(VideoUtils.screenRecorder + testMethodName);
-//                if (record.getName().endsWith(".mp4")) {
-//                    Allure.addAttachment(testMethodName, "video/mp4", Files.newInputStream(record.toPath()), ".mp4");
-//                }
-//            } catch (Exception e) {
-//                LogsUtils.error("Error attaching records" + e.getMessage());
-//            }
-//        }
-//
-//
-//    }
+    public static void attachRecord(String testMethodName) {
+        try {
+            String videoPath = "testOutputs/ScreenRecords/" + testMethodName + ".mp4";
+
+            LogsUtils.info("Attaching video: " + videoPath);
+
+            File videoFile = new File(videoPath);
+
+            if (videoFile.exists()) {
+                Allure.addAttachment(
+                        testMethodName + " - Screen Recording",
+                        "video/mp4",
+                        Files.newInputStream(videoFile.toPath()),
+                        ".mp4"
+                );
+            } else {
+                LogsUtils.error("Video file not found: " + videoPath);
+            }
+
+        } catch (Exception e) {
+            LogsUtils.error("Error attaching video: " + e.getMessage());
+        }
+    }
+
 
 }
