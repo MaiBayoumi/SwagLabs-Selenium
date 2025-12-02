@@ -54,11 +54,10 @@ public class IInvokedMethodListenerClass implements IInvokedMethodListener, IExe
             try {
                 Allure.addAttachment(
                         testClassName + " - Screen Recording",
-                        "video/mp4",
+                        "video/avi",
                         Files.newInputStream(latest.toPath()),
-                        ".mp4"
+                        ".avi"
                 );
-                AllureAttachmentManager.attachRecord(testResult.getMethod().getMethodName());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

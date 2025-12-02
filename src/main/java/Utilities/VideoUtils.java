@@ -12,14 +12,12 @@ public class VideoUtils {
         File folder = new File(System.getProperty("user.dir") + "/testOutputs/ScreenRecords");
         if (!folder.exists()) folder.mkdirs();
 
-        String fileName = testName + ".mp4";
-
         GraphicsConfiguration gc = GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getDefaultScreenDevice()
                 .getDefaultConfiguration();
 
-        screenRecorder = new CustomScreenRecorder(gc, folder, fileName);
+        screenRecorder = new CustomScreenRecorder(gc, folder, testName);
         screenRecorder.start();
     }
 
