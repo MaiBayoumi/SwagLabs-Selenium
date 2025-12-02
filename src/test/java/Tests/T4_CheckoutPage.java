@@ -6,6 +6,7 @@ import Listeners.ITestResultsListenerClass;
 import Pages.CheckoutPage;
 import Pages.LoginPage;
 import Utilities.Utility;
+import io.qameta.allure.Issue;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -94,6 +95,57 @@ public class T4_CheckoutPage {
 
         checkoutPage.clickOnContinue();
         Assert.assertTrue(checkoutPage.getErrorMessage().contains("Postal Code is required"));
+    }
+
+    @Issue("BUG-101")
+    @Test(groups = {"negative"})
+    public void verifyErrorWhenFirstNameHasNumbers_TC() {
+        CheckoutPage checkoutPage = new LoginPage(getDriver())
+                .enterUserName(USERNAME)
+                .enterPassword(PASSWORD)
+                .clickOnLogin()
+                .addRandomProducts(1, 3)
+                .clickingOnCartButton()
+                .clickOnCheckoutBTN()
+                .fillingFormData("Mai123", LAST_NAME, ZIP_CODE);
+
+        checkoutPage.clickOnContinue();
+        Assert.assertTrue(checkoutPage.getErrorMessage().contains("First Name is required")
+                || checkoutPage.getErrorMessage().contains("Invalid First Name"));
+    }
+
+    @Issue("BUG-102")
+    @Test(groups = {"negative"})
+    public void verifyErrorWhenLastNameHasNumbers_TC() {
+        CheckoutPage checkoutPage = new LoginPage(getDriver())
+                .enterUserName(USERNAME)
+                .enterPassword(PASSWORD)
+                .clickOnLogin()
+                .addRandomProducts(1, 3)
+                .clickingOnCartButton()
+                .clickOnCheckoutBTN()
+                .fillingFormData(FIRST_NAME, "Ibrahim55", ZIP_CODE);
+
+        checkoutPage.clickOnContinue();
+        Assert.assertTrue(checkoutPage.getErrorMessage().contains("Last Name is required")
+                || checkoutPage.getErrorMessage().contains("Invalid Last Name"));
+    }
+
+    @Issue("BUG-103")
+    @Test(groups = {"negative"})
+    public void verifyErrorWhenZipCodeHasLetters_TC() {
+        CheckoutPage checkoutPage = new LoginPage(getDriver())
+                .enterUserName(USERNAME)
+                .enterPassword(PASSWORD)
+                .clickOnLogin()
+                .addRandomProducts(1, 3)
+                .clickingOnCartButton()
+                .clickOnCheckoutBTN()
+                .fillingFormData(FIRST_NAME, LAST_NAME, "12AB3");
+
+        checkoutPage.clickOnContinue();
+        Assert.assertTrue(checkoutPage.getErrorMessage().contains("Postal Code is required")
+                || checkoutPage.getErrorMessage().contains("Invalid Postal Code"));
     }
 
     @AfterMethod
