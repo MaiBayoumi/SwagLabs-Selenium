@@ -17,6 +17,7 @@
             <class name="Tests.T4_CheckoutPage"/>
             <class name="Tests.T5_OverViewPage"/>
             <class name="Tests.T6_FinalPage"/>
+            <class name="Tests.T7_ProductDetailsNavigation"/>
         </classes>
     </test>
 </suite>
